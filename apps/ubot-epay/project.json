@@ -1,0 +1,128 @@
+{
+  "name": "ubot-epay",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "prefix": "nx-portal",
+  "sourceRoot": "apps/ubot-epay/src",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/angular:webpack-browser",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/ubot-epay",
+        "index": "apps/ubot-epay/src/index.html",
+        "main": "apps/ubot-epay/src/main.ts",
+        "polyfills": ["zone.js"],
+        "tsConfig": "apps/ubot-epay/tsconfig.app.json",
+        "assets": [
+          "apps/ubot-epay/src/favicon.ico",
+          "apps/ubot-epay/src/assets"
+        ],
+        "styles": ["apps/ubot-epay/src/styles.scss"],
+        "scripts": [],
+        "customWebpackConfig": {
+          "path": "apps/ubot-epay/webpack.config.js"
+        }
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "fileReplacements": [
+            {
+              "replace": "apps/ubot-epay/src/environments/environment.ts",
+              "with": "apps/ubot-epay/src/environments/environment.prod.ts"
+            }
+          ],
+          "outputHashing": "all",
+          "customWebpackConfig": {
+            "path": "apps/ubot-epay/webpack.prod.config.js"
+          }
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@nx/angular:webpack-dev-server",
+      "options": {
+        "port": 4202,
+        "publicHost": "http://localhost:4202"
+      },
+      "configurations": {
+        "production": {
+          "browserTarget": "ubot-epay:build:production"
+        },
+        "development": {
+          "browserTarget": "ubot-epay:build:development"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "browserTarget": "ubot-epay:build"
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "apps/ubot-epay/**/*.ts",
+          "apps/ubot-epay/**/*.html"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/ubot-epay/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    },
+    "serve-static": {
+      "executor": "@nx/web:file-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "ubot-epay:build",
+        "port": 4202,
+        "watch": false
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "ubot-epay:build:development"
+        },
+        "production": {
+          "buildTarget": "ubot-epay:build:production"
+        }
+      }
+    }
+  }
+}

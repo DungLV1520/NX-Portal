@@ -1,0 +1,128 @@
+{
+  "name": "ubot-invoice",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "prefix": "nx-portal",
+  "sourceRoot": "apps/ubot-invoice/src",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/angular:webpack-browser",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/ubot-invoice",
+        "index": "apps/ubot-invoice/src/index.html",
+        "main": "apps/ubot-invoice/src/main.ts",
+        "polyfills": ["zone.js"],
+        "tsConfig": "apps/ubot-invoice/tsconfig.app.json",
+        "assets": [
+          "apps/ubot-invoice/src/favicon.ico",
+          "apps/ubot-invoice/src/assets"
+        ],
+        "styles": ["apps/ubot-invoice/src/styles.scss"],
+        "scripts": [],
+        "customWebpackConfig": {
+          "path": "apps/ubot-invoice/webpack.config.js"
+        }
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "fileReplacements": [
+            {
+              "replace": "apps/ubot-invoice/src/environments/environment.ts",
+              "with": "apps/ubot-invoice/src/environments/environment.prod.ts"
+            }
+          ],
+          "outputHashing": "all",
+          "customWebpackConfig": {
+            "path": "apps/ubot-invoice/webpack.prod.config.js"
+          }
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@nx/angular:webpack-dev-server",
+      "options": {
+        "port": 4201,
+        "publicHost": "http://localhost:4201"
+      },
+      "configurations": {
+        "production": {
+          "browserTarget": "ubot-invoice:build:production"
+        },
+        "development": {
+          "browserTarget": "ubot-invoice:build:development"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "browserTarget": "ubot-invoice:build"
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "apps/ubot-invoice/**/*.ts",
+          "apps/ubot-invoice/**/*.html"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/ubot-invoice/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    },
+    "serve-static": {
+      "executor": "@nx/web:file-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "ubot-invoice:build",
+        "port": 4201,
+        "watch": false
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "ubot-invoice:build:development"
+        },
+        "production": {
+          "buildTarget": "ubot-invoice:build:production"
+        }
+      }
+    }
+  }
+}
