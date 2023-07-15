@@ -4,9 +4,10 @@
   "license": "MIT",
   "scripts": {
     "ng": "nx",
-    "start": "npx nx run ubot:serve ",
-    "build": "npx nx run ubot:build",
-    "test": "npx nx run ubot:test "
+    "start": "npx nx run-many --target=serve",
+    "build": "npx nx run-many --target=serve",
+    "test": "npx nx run-many --target=test",
+    "affected:graph": "npx nx affected:graph"
   },
   "private": true,
   "dependencies": {
@@ -27,8 +28,6 @@
     "@ngrx/store-devtools": "~16.0.0",
     "@nx/angular": "16.5.2",
     "ng-zorro-antd": "^16.0.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.13.0"
@@ -74,6 +73,8 @@
     "jest-environment-jsdom": "^29.4.1",
     "jest-preset-angular": "~13.1.0",
     "ng-packagr": "~16.1.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "nx": "16.5.2",
     "nx-cloud": "latest",
     "postcss": "^8.4.5",
