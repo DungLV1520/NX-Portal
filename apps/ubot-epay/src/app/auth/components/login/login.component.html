@@ -1,43 +1,47 @@
-<!-- <div class="auth-page">
-  <div class="container page">
-    <div class="row">
-      <div class="col-md-6 offset-md-3 col-xs-12">
-        <h1 class="text-xs-center">Sign In</h1>
-        <p class="text-xs-center">
-          <a [routerLink]="['/register']">Need an account?</a>
-        </p>
-        <mc-backend-error-messages
-          *ngIf="backendErrors$ | async"
-          [backendErrors]="backendErrors$ | async"
-        ></mc-backend-error-messages>
-        <form [formGroup]="form" (ngSubmit)="onSubmit()">
-          <fieldset>
-            <fieldset class="form-group">
-              <input
-                type="text"
-                class="form-control form-control-lg"
-                placeholder="Email"
-                formControlName="email"
-              />
-            </fieldset>
-            <fieldset class="form-group">
-              <input
-                type="password"
-                class="form-control form-control-lg"
-                placeholder="Password"
-                formControlName="password"
-              />
-            </fieldset>
-            <button
-              class="btn btn-lg btn-primary pull-xs-right"
-              type="submit"
-              [disabled]="isSubmitting$ | async"
-            >
-              Sign in
-            </button>
-          </fieldset>
-        </form>
+<div>
+  <h1 class="text-center mt-2">
+    <span> Hello there, </span>
+    Welcome Ubot epay 👋
+  </h1>
+  <form nz-form class="login-form mt-4">
+    <nz-form-item>
+      <nz-form-control>
+        <nz-input-group>
+          <label>
+            <span>Username</span>
+          </label>
+          <input type="text" nz-input placeholder="Username" />
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control>
+        <nz-input-group>
+          <label>
+            <span>Password</span>
+          </label>
+          <input type="password" nz-input placeholder="Password" />
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    <div nz-row class="login-form-margin">
+      <div nz-col [nzSpan]="12">
+        <label nz-checkbox>
+          <span>Remember me</span>
+        </label>
+      </div>
+      <div nz-col [nzSpan]="12">
+        <a class="login-form-forgot">Forgot password</a>
       </div>
     </div>
-  </div>
-</div> -->
+    <button
+      nz-button
+      class="login-form-button login-form-margin"
+      [nzType]="'primary'"
+      type="button"
+      (click)="dispatch()"
+    >
+      Log in
+    </button>
+  </form>
+</div>

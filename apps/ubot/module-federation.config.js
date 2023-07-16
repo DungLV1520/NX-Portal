@@ -1,4 +1,4 @@
 module.exports = {
   name: 'ubot',
-  remotes: ['ubot-invoice', 'ubot-epay'],
+  remotes: ['ubot-invoice', 'ubot-epay', 'ubot-matching'],
 };

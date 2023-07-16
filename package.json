@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "ng": "nx",
-    "start": "npx nx run-many --target=serve",
+    "start": "npx nx run ubot:serve",
     "build": "npx nx run-many --target=serve",
     "test": "npx nx run-many --target=test",
     "affected:graph": "npx nx affected:graph"
