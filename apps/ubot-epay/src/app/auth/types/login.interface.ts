@@ -1,6 +1,7 @@
-export interface LoginRequestInterface {
-  user: {
-    email: string
-    password: string
-  }
+export interface Books {
+  id: number;
+  name: string;
+  author: string;
+  cost: number;
+  isLoggedIn: boolean;
 }

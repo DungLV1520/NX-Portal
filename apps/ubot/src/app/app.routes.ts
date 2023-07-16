@@ -1,11 +1,15 @@
-import { NxWelcomeComponent } from './nx-welcome.component';
 import { Route } from '@angular/router';
+import { HomeComponent } from './pages/home/home.component';
 
 export const appRoutes: Route[] = [
   {
-    path: 'ubot-epay',
+    path: 'ubot-matching',
     loadChildren: () =>
-      import('ubot-epay/Module').then((m) => m.RemoteEntryModule),
+      import('ubot-matching/Routes').then((m) => m.remoteRoutes),
+  },
+  {
+    path: 'ubot-epay',
+    loadChildren: () => import('ubot-epay/Module').then((m) => m.AuthModule),
   },
   {
     path: 'ubot-invoice',
@@ -14,6 +18,6 @@ export const appRoutes: Route[] = [
   },
   {
     path: '',
-    component: NxWelcomeComponent,
+    component: HomeComponent,
   },
 ];

@@ -1,49 +1,28 @@
-import {NgModule} from '@angular/core'
-import {CommonModule} from '@angular/common'
-import {StoreModule} from '@ngrx/store'
-import {EffectsModule} from '@ngrx/effects'
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
-import {RegisterComponent} from 'src/app/auth/components/register/register.component'
-import {RouterModule} from '@angular/router'
-import {ReactiveFormsModule} from '@angular/forms'
-import {reducers} from 'src/app/auth/store/reducers'
-import {AuthService} from 'src/app/auth/services/auth.service'
-import {RegisterEffect} from 'src/app/auth/store/effects/register.effect'
-import {BackendErrorMessagesModule} from 'src/app/shared/modules/backendErrorMessages/backendErrorMessages.module'
-import {PersistanceService} from 'src/app/shared/services/persistance.service'
-import {LoginEffect} from 'src/app/auth/store/effects/login.effect'
-import {LoginComponent} from 'src/app/auth/components/login/login.component'
-import {GetCurrentUserEffect} from 'src/app/auth/store/effects/getCurrentUser.effect'
-import {UpdateCurrentUserEffect} from './store/effects/updateCurrentUser.effect'
-import {LogoutEffect} from './store/effects/logout.effect'
-
-const routes = [
-  {
-    path: 'register',
-    component: RegisterComponent
-  },
-  {
-    path: 'login',
-    component: LoginComponent
-  }
-]
+import { RouterModule } from '@angular/router';
+import { LoginComponent } from './components/login/login.component';
+import { NgZorroAntdModule } from '../ng-zorro.module';
+import { HttpClientModule } from '@angular/common/http';
+import { authRoutes } from './auth.routes';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { Feature } from './store/auth.reducers';
+import { BooksService } from './services/auth.service';
+import { BooksEffect } from './store/effects/login.effect';
+import { RegisterComponent } from './components/register/register.component';
 
 @NgModule({
   imports: [
     CommonModule,
-    RouterModule.forChild(routes),
-    ReactiveFormsModule,
-    StoreModule.forFeature('auth', reducers),
-    EffectsModule.forFeature([
-      RegisterEffect,
-      LoginEffect,
-      GetCurrentUserEffect,
-      UpdateCurrentUserEffect,
-      LogoutEffect
-    ]),
-    BackendErrorMessagesModule
+    RouterModule.forChild(authRoutes),
+    NgZorroAntdModule,
+    HttpClientModule,
+    StoreModule.forFeature(Feature),
+    EffectsModule.forFeature([BooksEffect]),
   ],
-  declarations: [RegisterComponent, LoginComponent],
-  providers: [AuthService, PersistanceService]
+  declarations: [LoginComponent, RegisterComponent],
+  providers: [BooksService],
 })
 export class AuthModule {}

@@ -1,21 +1,16 @@
-// import {createAction, props} from '@ngrx/store'
+import { createActionGroup, emptyProps, props } from '@ngrx/store';
+import { Books } from '../../types/login.interface';
 
-// import {ActionTypes} from 'src/app/auth/store/actionTypes'
-// import {LoginRequestInterface} from 'src/app/auth/types/loginRequest.interface'
-// import {CurrentUserInterface} from 'src/app/shared/types/currentUser.interface'
-// import {BackendErrorsInterface} from 'src/app/shared/types/backendErrors.interface'
-
-// export const loginAction = createAction(
-//   ActionTypes.LOGIN,
-//   props<{request: LoginRequestInterface}>()
-// )
-
-// export const loginSuccessAction = createAction(
-//   ActionTypes.LOGIN_SUCCESS,
-//   props<{currentUser: CurrentUserInterface}>()
-// )
-
-// export const loginFailureAction = createAction(
-//   ActionTypes.LOGIN_FAILURE,
-//   props<{errors: BackendErrorsInterface}>()
-// )
+export const BooksAPIActions = createActionGroup({
+  source: '[Books API]',
+  events: {
+    'Invoke Books Fetch API': emptyProps(),
+    'Fetch API Success': props<{ allBooks: Books[] }>(),
+    'Inovke save new book api': props<{ newBook: Books }>(),
+    'Save new book api success': props<{ newBook: Books }>(),
+    'Inovke update book api': props<{ updateBook: Books }>(),
+    'Update  book api success': props<{ updateBook: Books }>(),
+    'Inovke delete book api': props<{ id: number }>(),
+    'Deleted book api success': props<{ id: number }>(),
+  },
+});

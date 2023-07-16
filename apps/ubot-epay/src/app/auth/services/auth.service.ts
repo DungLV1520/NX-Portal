@@ -1,46 +1,28 @@
-// import {Injectable} from '@angular/core'
-// import {HttpClient} from '@angular/common/http'
-// import {Observable} from 'rxjs'
-// import {map} from 'rxjs/operators'
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Books } from '../types/login.interface';
 
-// import {RegisterRequestInterface} from 'src/app/auth/types/registerRequest.interface'
-// import {CurrentUserInterface} from 'src/app/shared/types/currentUser.interface'
-// import {environment} from 'src/environments/environment'
-// import {AuthResponseInterface} from 'src/app/auth/types/authResponse.interface'
-// import {LoginRequestInterface} from 'src/app/auth/types/loginRequest.interface'
-// import {CurrentUserInputInterface} from 'src/app/shared/types/currentUserInput.interface'
+@Injectable({
+  providedIn: 'root',
+})
+export class BooksService {
+  constructor(private http: HttpClient) {}
+  get() {
+    return this.http.get<Books[]>('http://localhost:3000/books');
+  }
 
-// @Injectable()
-// export class AuthService {
-//   constructor(private http: HttpClient) {}
+  create(payload: Books) {
+    return this.http.post<Books>('http://localhost:3000/books', payload);
+  }
 
-//   getUser(response: AuthResponseInterface): CurrentUserInterface {
-//     return response.user
-//   }
+  update(payload: Books) {
+    return this.http.put<Books>(
+      `http://localhost:3000/books/${payload.id}`,
+      payload
+    );
+  }
 
-//   register(data: RegisterRequestInterface): Observable<CurrentUserInterface> {
-//     const url = environment.apiUrl + '/users'
-//     return this.http
-//       .post<AuthResponseInterface>(url, data)
-//       .pipe(map(this.getUser))
-//   }
-
-//   login(data: LoginRequestInterface): Observable<CurrentUserInterface> {
-//     const url = environment.apiUrl + '/users/login'
-//     return this.http
-//       .post<AuthResponseInterface>(url, data)
-//       .pipe(map(this.getUser))
-//   }
-
-//   getCurrentUser(): Observable<CurrentUserInterface> {
-//     const url = environment.apiUrl + '/user'
-//     return this.http.get(url).pipe(map(this.getUser))
-//   }
-
-//   updateCurrentUser(
-//     data: CurrentUserInputInterface
-//   ): Observable<CurrentUserInterface> {
-//     const url = environment.apiUrl + '/user'
-//     return this.http.put(url, data).pipe(map(this.getUser))
-//   }
-// }
+  delete(id: number) {
+    return this.http.delete(`http://localhost:3000/books/${id}`);
+  }
+}
